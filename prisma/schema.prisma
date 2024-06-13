@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,17 +7,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Video {
-  id            String   @id @default(cuid())
-  apiId         Int      @unique
+model video {
+  id            Int      @id @default(autoincrement())
+  apiId         Int      @unique(map: "Video_apiId_key")
   title         String   @db.VarChar(255)
   otherTitle    String?  @db.VarChar(255)
   description   String   @db.Text
   blurb         String?  @db.Text
-  image         String?  @db.VarChar(255)
-  featuredImage String?  @db.VarChar(255)
   author        String?  @db.VarChar(255)
-  cast          String?  @db.VarChar(255)
   director      String?  @db.VarChar(255)
   publishYear   String?  @db.VarChar(255)
   url           String   @db.LongText
@@ -33,4 +24,7 @@ model Video {
   category      String   @db.VarChar(255)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+  cast          String?  @db.VarChar(255)
+  featuredImage String?  @db.VarChar(255)
+  image         String?  @db.Text
 }

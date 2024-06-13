@@ -22,6 +22,9 @@ app.get('/generate', async (req: any, res: any) => {
         const videoList = data.list; // Array of objects
 
         for (const video of videoList) {
+            if (video.type_name === "伦理片") {
+                continue;
+            }
             await prisma.video.upsert({
                 where: {
                     apiId: video.vod_id,
@@ -32,7 +35,7 @@ app.get('/generate', async (req: any, res: any) => {
                     otherTitle: video.vod_sub,
                     description: video.vod_content,
                     blurb: video.vod_blurb,
-                    image: video.vod_pic,
+                    image: video.vod_pic.replace("img.test", "funaxun"),
                     cast: video.vod_actor,
                     author: video.vod_writer,
                     director: video.vod_director,
@@ -45,7 +48,7 @@ app.get('/generate', async (req: any, res: any) => {
                     otherTitle: video.vod_sub,
                     description: video.vod_content,
                     blurb: video.vod_blurb,
-                    image: video.vod_pic,
+                    image: video.vod_pic.replace("img.test", "funaxun"),
                     cast: video.vod_actor,
                     author: video.vod_writer,
                     director: video.vod_director,
